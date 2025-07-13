@@ -1,0 +1,35 @@
+---
+- name: Define packages for all OS
+  set_fact:
+    devtools_packages_macos:
+      - eza
+      - bat
+      - fzf
+      - thefuck
+      - zoxide
+      - ranger
+      - trash-cli
+    devtools_packages_arch:
+      - eza
+      - bat
+      - fzf
+      - the-fuck
+      - zoxide
+      - ranger
+      - trash-cli
+    devtools_packages_debian:
+      - fzf
+      - zoxide
+      - ranger
+
+- name: Install devtools (macOS)
+  community.general.homebrew:
+    name: "{{ devtools_packages_macos }}"
+    state: present
+  when: ansible_os_family == "Darwin"
+
+- name: Install devtools (Arch Linux)
+  community.general.pacman:
+    name: "{{ devtools_packages_arch }}"
+    state: present
+  when: ansible_os_family == "Archlinux"

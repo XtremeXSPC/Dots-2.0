@@ -1,0 +1,18 @@
+---
+- name: Install common packages (macOS)
+  community.general.homebrew:
+    name:
+      - git
+      - curl
+      - wget
+    state: present
+  when: ansible_os_family == "Darwin"
+
+- name: Install common packages (Linux)
+  ansible.builtin.package:
+    name:
+      - git
+      - curl
+      - wget
+    state: present
+  when: ansible_os_family == "Debian" or ansible_os_family == "Archlinux"
